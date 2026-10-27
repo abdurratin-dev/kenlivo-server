@@ -9,16 +9,16 @@ import { slugify } from '../utils/slugify.js';
 async function seed() {
   await connectDB();
 
-  const adminEmail = 'admin@kenlivo.com';
+  const adminEmail = 'arakash.developer@gmail.com';
   let admin = await User.findOne({ email: adminEmail });
   if (!admin) {
     admin = await User.create({
-      name: 'Kenlivo Admin',
+      name: 'Akash Admin',
       email: adminEmail,
-      password: 'Admin@123',
+      password: 'K3nl!v0#Adm!n$2025',
       role: 'admin',
     });
-    logger.info(`Created admin: ${adminEmail} / Admin@123`);
+    logger.info(`Created admin: ${adminEmail}`);
   }
 
   const categoryNames = ['Electronics', 'Fashion', 'Home & Living', 'Beauty'];
