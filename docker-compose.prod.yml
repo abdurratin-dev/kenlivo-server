@@ -11,10 +11,10 @@ services:
     env_file:
       - .env.production
     ports:
-      - "7000:7000"
+      - "4070:4070"
     healthcheck:
       test:
-        ["CMD", "node", "-e", "fetch('http://localhost:7000/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+        ["CMD", "node", "-e", "fetch('http://localhost:4070/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
