@@ -28,7 +28,7 @@ services:
     environment:
       MONGODB_URI: mongodb://root:example@mongo:27017/kenlivo?authSource=admin
     ports:
-      - "7000:7000"
+      - "4070:4070"
     volumes:
       - ./src:/app/src
       - ./package.json:/app/package.json
