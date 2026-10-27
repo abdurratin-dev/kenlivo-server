@@ -1,5 +1,6 @@
 # Local development: API only (uses MongoDB Atlas via .env.development)
 # Usage: docker compose up --build
+# For file-watch auto-reload: docker compose watch
 services:
   api:
     build:
@@ -8,6 +9,10 @@ services:
     restart: unless-stopped
     env_file:
       - .env.development
+    environment:
+      # Enable polling so file changes on Windows host propagate into the Linux container
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=500
     ports:
       - "4070:4070"
     volumes:
@@ -15,3 +20,18 @@ services:
       - ./package.json:/app/package.json
       - ./tsconfig.json:/app/tsconfig.json
       - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+    develop:
+      watch:
+        # Sync source changes — tsx watch picks them up and restarts the process
+        - action: sync
+          path: ./src
+          target: /app/src
+        # tsconfig change needs container restart
+        - action: sync+restart
+          path: ./tsconfig.json
+          target: /app/tsconfig.json
+        # Dependency changes need a full rebuild
+        - action: rebuild
+          path: ./package.json
+        - action: rebuild
+          path: ./pnpm-lock.yaml
