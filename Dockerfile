@@ -8,6 +8,7 @@ WORKDIR /app
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
 RUN corepack enable
+ENV PNPM_UNSAFE_PERM=1
 
 ############################
 # Dependencies (prod only)
@@ -34,7 +35,7 @@ ENV NODE_ENV=development
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
-EXPOSE 7000
+EXPOSE 4070
 CMD ["pnpm", "run", "dev"]
 
 ############################
@@ -46,5 +47,5 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 USER node
-EXPOSE 7000
+EXPOSE 4070
 CMD ["node", "dist/server.js"]

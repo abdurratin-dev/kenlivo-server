@@ -1,3 +1,2 @@
-# Allow esbuild (used by tsx) to run its install script.
-onlyBuiltDependencies:
-  - esbuild
+allowBuilds:
+  esbuild: true
