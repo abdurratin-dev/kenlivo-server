@@ -1,0 +1,25 @@
+# dependencies
+/node_modules
+
+# build output
+/dist
+
+# logs
+*.log
+npm-debug.log*
+
+# env files — NEVER commit real secrets.
+# Only `.env.example` (placeholder values) is tracked.
+.env
+.env.development
+.env.production
+.env.example
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.tsbuildinfo
